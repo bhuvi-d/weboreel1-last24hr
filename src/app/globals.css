@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  
+  --color-primary: #ff3e3e;
+  --color-secondary: #00f2ff;
+  --color-accent: #ff00ea;
+}
+
+:root {
+  --background: #010101;
+  --foreground: #ffffff;
+  --primary: #ff3e3e;
+  --secondary: #00f2ff;
+  --accent: #ff00ea;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(255, 62, 62, 0.3);
+  color: #fff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Cinematic Utilities */
+.text-glow {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+               0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(255, 62, 62, 0.5),
+               0 0 20px rgba(255, 62, 62, 0.3);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.04;
+  z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  background: url("https://res.cloudinary.com/dqrk7y90q/image/upload/v1621456100/grain_v2_f8z8z9.png");
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0) }
+  10% { transform: translate(-5%, -10%) }
+  20% { transform: translate(-15%, 5%) }
+  30% { transform: translate(7%, -25%) }
+  40% { transform: translate(-5%, 25%) }
+  50% { transform: translate(-15%, 10%) }
+  60% { transform: translate(15%, 0%) }
+  70% { transform: translate(0%, 15%) }
+  80% { transform: translate(3%, 35%) }
+  90% { transform: translate(-10%, 10%) }
+}
+
+.chromatic-aberration {
+  filter: drop-shadow(2px 0 0 rgba(255,0,0,0.2)) drop-shadow(-2px 0 0 rgba(0,255,255,0.2));
+}
+
+.cinematic-text {
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+/* Lenis Smooth Scroll */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+.glitch {
+  position: relative;
+  animation: glitch 5s infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0) }
+  1% { transform: translate(-2px, 2px) }
+  2% { transform: translate(2px, -2px) }
+  3% { transform: translate(0) }
+  100% { transform: translate(0) }
+}
+
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch::before {
+  color: #0ff;
+  z-index: -1;
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  color: #f0f;
+  z-index: -2;
+  animation: glitch-anim2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: inset(10% 0 30% 0) }
+  20% { clip-path: inset(40% 0 10% 0) }
+  40% { clip-path: inset(70% 0 5% 0) }
+  60% { clip-path: inset(30% 0 50% 0) }
+  80% { clip-path: inset(10% 0 80% 0) }
+  100% { clip-path: inset(50% 0 20% 0) }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip-path: inset(20% 0 40% 0) }
+  20% { clip-path: inset(50% 0 30% 0) }
+  40% { clip-path: inset(10% 0 60% 0) }
+  60% { clip-path: inset(40% 0 20% 0) }
+  80% { clip-path: inset(70% 0 10% 0) }
+  100% { clip-path: inset(30% 0 50% 0) }
+}
+
