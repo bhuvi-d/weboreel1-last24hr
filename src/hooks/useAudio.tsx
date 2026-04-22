@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useRef, useEffect } from 'react';
+import { motion } from "framer-motion";
 
 interface AudioContextType {
   isMuted: boolean;
@@ -94,7 +95,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-3xl cursor-pointer"
           onClick={toggleMute}
         >
-          <motion_div 
+          <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="text-center space-y-8"
@@ -105,7 +106,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             <p className="text-primary font-mono text-sm tracking-[0.5em] animate-pulse">
               Tap to enter the final day
             </p>
-          </motion_div>
+          </motion.div>
         </div>
       )}
     </AudioContext.Provider>
@@ -120,5 +121,4 @@ export const useAudio = () => {
   return context;
 };
 
-// Internal motion div for the provider
-import { motion as motion_div } from "framer-motion";
+

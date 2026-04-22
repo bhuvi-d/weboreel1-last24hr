@@ -75,7 +75,7 @@ function Scene() {
       
       <Earth />
 
-      <EffectComposer disableNormalPass>
+      <EffectComposer enableNormalPass={false}>
         <Bloom 
           intensity={isMobile ? 0.8 : 1.5} 
           luminanceThreshold={0.2} 
