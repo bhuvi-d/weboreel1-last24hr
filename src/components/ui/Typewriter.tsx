@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 
 interface TypewriterProps {
   text: string;
@@ -10,8 +10,12 @@ interface TypewriterProps {
 
 export function Typewriter({ text, delay = 0 }: TypewriterProps) {
   const [displayText, setDisplayText] = useState("");
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
+    if (!isInView) return;
+    
     let currentText = "";
     const timeout = setTimeout(() => {
       const interval = setInterval(() => {
@@ -26,10 +30,10 @@ export function Typewriter({ text, delay = 0 }: TypewriterProps) {
     }, delay * 1000);
 
     return () => clearTimeout(timeout);
-  }, [text, delay]);
+  }, [text, delay, isInView]);
 
   return (
-    <motion.span className="font-display italic text-white/90">
+    <motion.span ref={ref} className="font-display italic text-white/90">
       {displayText}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
